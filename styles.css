@@ -204,6 +204,8 @@ a:hover { opacity: .65; }
 .features__track::-webkit-scrollbar { display: none; }
 
 .feature {
+  display: flex;
+  flex-direction: column;
   padding-top: 12px;
   scroll-snap-align: start;
 }
@@ -226,6 +228,7 @@ a:hover { opacity: .65; }
 .feature__photo { margin-top: 16px; }
 
 .feature__text {
+  flex: 1;
   margin: 0;
   font-size: 15px;
   line-height: 1.5;
