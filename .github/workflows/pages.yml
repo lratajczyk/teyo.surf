@@ -1,0 +1,57 @@
+# Publishes the site to GitHub Pages:
+#   main    -> https://teyo.surf/
+#   preview -> https://teyo.surf/preview/  (noindex, for checking changes before release)
+# A push to either branch rebuilds both.
+
+name: Deploy Pages
+
+on:
+  push:
+    branches: [main, preview]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          path: main
+
+      - name: Check out preview branch (if it exists)
+        run: |
+          if git ls-remote --exit-code --heads "https://github.com/${{ github.repository }}.git" preview >/dev/null; then
+            git clone --depth 1 --branch preview "https://github.com/${{ github.repository }}.git" preview
+          fi
+
+      - name: Assemble site
+        run: |
+          EXCLUDES="--exclude=.git --exclude=.github --exclude=.gitignore --exclude=CLAUDE.md --exclude=README.md"
+          mkdir _site
+          rsync -a $EXCLUDES main/ _site/
+          if [ -d preview ]; then
+            mkdir -p _site/preview
+            rsync -a $EXCLUDES --exclude=CNAME preview/ _site/preview/
+            # Keep the preview out of search engines
+            find _site/preview -name '*.html' -exec sed -i 's#<head>#<head>\n  <meta name="robots" content="noindex, nofollow">#' {} +
+          fi
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4
