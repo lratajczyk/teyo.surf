@@ -149,6 +149,57 @@ a:hover { opacity: .65; }
   object-fit: cover;
 }
 
+.photo--zoom { cursor: zoom-in; }
+.photo--zoom:not(:has(img)) { cursor: default; }
+.photo--zoom img { transition: opacity .2s; }
+.photo--zoom:hover img { opacity: .92; }
+
+/* Lightbox */
+
+.lightbox {
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.lightbox::backdrop { background: rgba(255, 255, 255, .98); }
+
+.lightbox[open] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox__img {
+  max-width: calc(100vw - 32px);
+  max-height: calc(100dvh - 96px);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  cursor: zoom-out;
+}
+
+.lightbox__close {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  font: 300 32px/1 var(--font);
+  color: var(--black);
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+.lightbox__close:hover { opacity: .55; }
+
 /* Features carousel */
 
 .features { padding-bottom: 88px; }
