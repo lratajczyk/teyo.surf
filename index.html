@@ -201,37 +201,115 @@
   </script>
   <dialog class="lightbox" aria-label="Photo">
     <button type="button" class="lightbox__close" aria-label="Close">&times;</button>
-    <img class="lightbox__img" src="" alt="">
+    <button type="button" class="lightbox__arrow lightbox__arrow--prev" aria-label="Previous photo">&larr;</button>
+    <button type="button" class="lightbox__arrow lightbox__arrow--next" aria-label="Next photo">&rarr;</button>
+    <figure class="lightbox__stage">
+      <img class="lightbox__img" src="" alt="">
+      <figcaption class="lightbox__caption"></figcaption>
+    </figure>
+    <span class="lightbox__count" aria-live="polite"></span>
   </dialog>
 
   <script>
+    /* Photo lightbox. Each gallery (.photos grid, feature carousel) is browsed separately,
+       with arrows, swipe or arrow keys, looping from last to first. */
     (function () {
       var box = document.querySelector('.lightbox');
       var big = box.querySelector('.lightbox__img');
-      function open(img) {
-        if (!img.isConnected || !img.naturalWidth) return;
+      var caption = box.querySelector('.lightbox__caption');
+      var count = box.querySelector('.lightbox__count');
+      var items = [];
+      var index = 0;
+      var step = 1;
+
+      /* A photo whose file is missing has its <img> removed (onerror), so it is skipped. */
+      function loaded(fig) {
+        return fig.querySelector('img');
+      }
+
+      function show(i) {
+        if (!items.length) { box.close(); return; }
+        index = (i + items.length) % items.length;
+        var fig = items[index];
+        var img = loaded(fig);
         big.src = img.currentSrc || img.src;
         big.alt = img.alt;
-        box.showModal();
+        caption.innerHTML = '';
+        var feature = fig.closest('.feature');
+        if (feature) {
+          ['.feature__no', '.feature__title', '.feature__text'].forEach(function (sel) {
+            var src = feature.querySelector(sel);
+            if (src) caption.appendChild(src.cloneNode(true));
+          });
+        }
+        box.classList.toggle('lightbox--captioned', !!feature);
+        count.textContent = items.length > 1 ? (index + 1) + ' / ' + items.length : '';
       }
-      document.querySelectorAll('.photo').forEach(function (fig) {
+
+      function open(fig) {
+        if (!loaded(fig)) return;
+        var gallery = fig.closest('.photos, .features__track');
+        items = Array.prototype.filter.call(gallery.querySelectorAll('.photo'), loaded);
+        box.classList.toggle('lightbox--single', items.length < 2);
+        step = 1;
+        show(items.indexOf(fig));
+        if (!box.open) box.showModal();
+      }
+
+      document.querySelectorAll('.photos .photo, .features__track .photo').forEach(function (fig) {
         var img = fig.querySelector('img');
         if (!img) return;
         fig.classList.add('photo--zoom');
         fig.tabIndex = 0;
         fig.setAttribute('role', 'button');
         fig.setAttribute('aria-label', 'Open photo' + (img.alt ? ': ' + img.alt : ''));
-        fig.addEventListener('click', function () { if (fig.querySelector('img')) open(img); });
+        fig.addEventListener('click', function () { open(fig); });
         fig.addEventListener('keydown', function (e) {
-          if ((e.key === 'Enter' || e.key === ' ') && fig.querySelector('img')) { e.preventDefault(); open(img); }
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(fig); }
         });
         img.addEventListener('error', function () {
-          fig.classList.remove('photo--zoom'); fig.removeAttribute('role'); fig.removeAttribute('tabindex'); fig.removeAttribute('aria-label');
+          fig.classList.remove('photo--zoom');
+          ['role', 'tabindex', 'aria-label'].forEach(function (a) { fig.removeAttribute(a); });
         });
       });
+
       box.querySelector('.lightbox__close').addEventListener('click', function () { box.close(); });
-      box.addEventListener('click', function (e) { if (e.target === box || e.target === big) box.close(); });
+      function go(d) { step = d; show(index + d); }
+
+      /* The file behind this photo is missing: drop it from the gallery and move on. */
+      big.addEventListener('error', function () {
+        if (!box.open || !big.getAttribute('src')) return;
+        var gone = items.splice(index, 1)[0];
+        var img = gone.querySelector('img');
+        if (img) img.dispatchEvent(new Event('error'));
+        if (img) img.remove();
+        box.classList.toggle('lightbox--single', items.length < 2);
+        show(step > 0 ? index : index - 1);
+      });
+
+      box.querySelector('.lightbox__arrow--prev').addEventListener('click', function () { go(-1); });
+      box.querySelector('.lightbox__arrow--next').addEventListener('click', function () { go(1); });
+      box.addEventListener('click', function (e) {
+        if (e.target === box || e.target.classList.contains('lightbox__stage')) box.close();
+      });
+      box.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowLeft') go(-1);
+        if (e.key === 'ArrowRight') go(1);
+      });
       box.addEventListener('close', function () { big.removeAttribute('src'); });
+
+      var startX = null, startY = 0;
+      box.addEventListener('touchstart', function (e) {
+        if (e.touches.length !== 1) { startX = null; return; }
+        startX = e.touches[0].clientX; startY = e.touches[0].clientY;
+      }, { passive: true });
+      box.addEventListener('touchend', function (e) {
+        if (startX === null || items.length < 2) return;
+        var dx = e.changedTouches[0].clientX - startX;
+        var dy = e.changedTouches[0].clientY - startY;
+        startX = null;
+        if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) go(dx < 0 ? 1 : -1);
+      });
     })();
   </script>
 </body>

@@ -166,9 +166,10 @@ a:hover { opacity: .65; }
   padding: 0;
   border: 0;
   background: transparent;
+  overscroll-behavior: contain;
 }
 
-.lightbox::backdrop { background: rgba(255, 255, 255, .98); }
+.lightbox::backdrop { background: var(--white); }
 
 .lightbox[open] {
   display: flex;
@@ -176,29 +177,81 @@ a:hover { opacity: .65; }
   justify-content: center;
 }
 
+.lightbox__stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 64px 16px;
+}
+
 .lightbox__img {
-  max-width: calc(100vw - 32px);
-  max-height: calc(100dvh - 96px);
+  flex: 0 1 auto;
+  max-width: 100%;
+  max-height: 100%;
+  min-height: 0;
   width: auto;
   height: auto;
   object-fit: contain;
-  cursor: zoom-out;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
-.lightbox__close {
+.lightbox__caption {
+  flex: 0 0 auto;
+  display: none;
+  width: 100%;
+  max-width: 560px;
+  padding-top: 16px;
+}
+
+.lightbox--captioned .lightbox__caption { display: block; }
+
+.lightbox__close,
+.lightbox__arrow {
   position: fixed;
-  top: 12px;
-  right: 12px;
+  z-index: 1;
   width: 44px;
   height: 44px;
   padding: 0;
-  font: 300 32px/1 var(--font);
+  font: 300 22px/1 var(--font);
   color: var(--black);
   background: none;
   border: 0;
   cursor: pointer;
 }
-.lightbox__close:hover { opacity: .55; }
+
+.lightbox__close { top: 12px; right: 12px; font-size: 32px; }
+
+/* Mobile: arrows in the bottom corners, clear of the photo */
+.lightbox__arrow { bottom: 10px; }
+.lightbox__arrow--prev { left: 8px; }
+.lightbox__arrow--next { right: 8px; }
+.lightbox--single .lightbox__arrow { display: none; }
+
+.lightbox__close:hover,
+.lightbox__arrow:hover { opacity: .55; }
+
+.lightbox__count {
+  position: fixed;
+  top: 26px;
+  left: 20px;
+  font-size: 12px;
+  letter-spacing: .12em;
+  color: var(--grey-2);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (min-width: 760px) {
+  .lightbox__stage { padding: 72px 88px; }
+  .lightbox__arrow { top: 50%; bottom: auto; transform: translateY(-50%); }
+  .lightbox__arrow--prev { left: 24px; }
+  .lightbox__arrow--next { right: 24px; }
+  .lightbox__count { left: 40px; }
+}
 
 /* Features carousel */
 
