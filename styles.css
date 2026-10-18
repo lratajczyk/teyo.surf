@@ -114,19 +114,21 @@ a:hover { opacity: .65; }
 
 .photos {
   display: grid;
-  gap: 12px;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
   padding-bottom: 72px;
 }
 
 .photo {
   position: relative;
   margin: 0;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 3 / 4;
   background: var(--grey-5);
   overflow: hidden;
 }
 
-.photo--wide { aspect-ratio: 3 / 2; }
+/* Mobile: first photo full width, then a 2 × 2 grid */
+.photos .photo:first-child { grid-column: 1 / -1; }
 
 .photo::before {
   content: attr(data-label);
@@ -291,12 +293,14 @@ a:hover { opacity: .65; }
   .topbar .wrap { padding-top: 32px; padding-bottom: 32px; }
   .intro { padding: 96px 0 72px; }
 
+  /* Desktop: two large photos, then three */
   .photos {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(6, 1fr);
     gap: 16px;
     padding-bottom: 120px;
   }
-  .photo--wide { grid-column: 1 / -1; }
+  .photos .photo { grid-column: span 2; }
+  .photos .photo:nth-child(-n+2) { grid-column: span 3; }
 
   .waitlist { padding: 120px 0 128px; }
   .waitlist .wrap {
