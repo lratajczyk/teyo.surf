@@ -6,7 +6,20 @@
   <title>Teyo pump board – First drop</title>
   <meta name="description" content="Handmade pumpfoil boards from the Baltic coast, Gdańsk. First drop: five numbered boards. Join the waitlist for early access.">
   <link rel="canonical" href="https://teyo.surf/">
+  <link rel="alternate" hreflang="en" href="https://teyo.surf/">
+  <link rel="alternate" hreflang="pl" href="https://teyo.surf/pl/">
+  <link rel="alternate" hreflang="x-default" href="https://teyo.surf/">
+  <!-- First visit with a Polish browser language: go to the Polish version.
+       A manual choice in the EN / PL switch is remembered and wins. -->
+  <script>
+    try {
+      if (!localStorage.getItem('teyo-lang') &&
+          (navigator.languages || [navigator.language]).some(function (l) { return /^pl\b/i.test(l); }))
+        location.replace('pl/' + location.hash);
+    } catch (e) {}
+  </script>
   <meta name="theme-color" content="#ffffff">
+  <script>document.documentElement.classList.add('js')</script>
 
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
@@ -31,16 +44,22 @@
 
   <header class="topbar">
     <div class="wrap">
-      <a class="wordmark" href="./">TEYO</a>
-      <span class="label topbar__place">Gdańsk / Poland / Baltic sea</span>
+      <div class="brand">
+        <a class="wordmark" href="./">TEYO</a>
+        <span class="brand__place">Gdańsk / Poland / Baltic sea</span>
+      </div>
+      <nav class="lang label" aria-label="Language">
+        <a href="./" data-lang="en" aria-current="true">EN</a>
+        <a href="pl/" data-lang="pl" hreflang="pl" lang="pl">PL</a>
+      </nav>
     </div>
   </header>
 
   <main>
     <section class="intro">
-      <div class="wrap">
-        <h1>Teyo pump board – First drop</h1>
-        <div class="intro__text">
+      <div class="wrap intro__grid">
+        <h1 class="lines"><span class="line"><span data-line style="--i:0">Teyo pump board&nbsp;–</span></span> <span class="line"><span data-line style="--i:1">First drop</span></span></h1>
+        <div class="intro__text reveal" style="--d:3">
           <p>Pumpfoil boards, crafted by hand on the Polish Baltic coast.</p>
           <p>Five boards. Each one a unique piece of art and high-performance equipment.</p>
           <p><a class="intro__link" href="#waitlist">Join the waitlist for early access. <span aria-hidden="true">&rarr;</span></a></p>
@@ -50,42 +69,53 @@
 
     <!-- PHOTOS — images/photo-1.jpg … photo-5.jpg (3:4). A grey placeholder shows if a file is missing. -->
     <div class="wrap photos">
-      <figure class="photo" data-label="Photo 1">
+      <figure class="photo photo--drift reveal reveal--settle" style="--d:0" data-label="Photo 1">
         <img src="images/photo-1.jpg" alt="Two Teyo boards with foils at the Baltic shore" width="768" height="1024" loading="lazy" onerror="this.remove()">
       </figure>
-      <figure class="photo" data-label="Photo 2">
+      <figure class="photo reveal reveal--settle" style="--d:1" data-label="Photo 2">
         <img src="images/photo-2.jpg" alt="The bottom of a Teyo board" width="768" height="1024" loading="lazy" onerror="this.remove()">
       </figure>
-      <figure class="photo" data-label="Photo 3">
+      <figure class="photo reveal reveal--settle" style="--d:2" data-label="Photo 3">
         <img src="images/photo-3.jpg" alt="The grey deck pad of a Teyo board" width="768" height="1024" loading="lazy" onerror="this.remove()">
       </figure>
-      <figure class="photo" data-label="Photo 4">
+      <figure class="photo reveal reveal--settle" style="--d:0" data-label="Photo 4">
         <img src="images/photo-4.jpg" alt="Board number Teyo-004, signed, made in Poland" width="768" height="1024" loading="lazy" onerror="this.remove()">
       </figure>
-      <figure class="photo" data-label="Photo 5">
+      <figure class="photo reveal reveal--settle" style="--d:1" data-label="Photo 5">
         <img src="images/photo-5.jpg" alt="Teyo board with a foil on the beach" width="768" height="1024" loading="lazy" onerror="this.remove()">
       </figure>
     </div>
+
+    <section class="about" aria-labelledby="about-label">
+      <div class="wrap section-grid">
+        <h2 class="side-head reveal" id="about-label">The workshop</h2>
+        <div class="about__text">
+          <p class="reveal" style="--d:1">Teyo is a small board workshop on the Baltic coast, near Gdańsk. My name is Łukasz. A painter by training and a shaper by trade, I design and build foil boards by hand.</p>
+          <p class="reveal" style="--d:2">Every board begins as a 3D model and ends in the workshop, where I shape, laminate and finish it myself. I make pumpfoil boards in small batches, so each one gets the time and attention it needs.</p>
+          <p class="reveal" style="--d:3">The name comes from Teo and Yo, my son and me: a reminder that I am building something meant to last.</p>
+        </div>
+      </div>
+    </section>
 
     <!-- FEATURES CAROUSEL
          Photos: images/feature-1.jpg … feature-7.jpg (grey placeholder until the file exists). -->
     <section class="features" aria-labelledby="features-label">
       <div class="wrap">
-        <div class="features__head">
-          <p class="label" id="features-label">The board</p>
+        <div class="features__head reveal">
+          <h2 class="side-head" id="features-label">The board</h2>
           <div class="features__nav" hidden>
             <button type="button" class="features__btn" data-dir="-1" aria-label="Previous">&larr;</button>
             <span class="features__count" aria-live="polite">01 / 07</span>
             <button type="button" class="features__btn" data-dir="1" aria-label="Next">&rarr;</button>
           </div>
         </div>
-        <ol class="features__track" tabindex="0">
+        <ol class="features__track reveal" tabindex="0" style="--d:1">
           <li class="feature">
             <span class="feature__no">01</span>
             <h3 class="feature__title">Embedded grip</h3>
             <p class="feature__text">Custom grip, set slightly into the deck. Locks your feet in, adds almost nothing to the weight, never peels like a pad.</p>
             <figure class="photo feature__photo" data-label="Photo">
-              <img src="images/feature-1.jpg" alt="" loading="lazy" onerror="this.remove()">
+              <img src="images/feature-1.jpg" alt="Render of the deck from above, with the recess for the embedded grip" width="1080" height="1440" loading="lazy" onerror="this.remove()">
             </figure>
           </li>
           <li class="feature">
@@ -93,7 +123,7 @@
             <h3 class="feature__title">Double concave deck</h3>
             <p class="feature__text">Two shallow concaves under your feet. More control over rail-to-rail pumping, better feel through the board.</p>
             <figure class="photo feature__photo" data-label="Photo">
-              <img src="images/feature-2.jpg" alt="" loading="lazy" onerror="this.remove()">
+              <img src="images/feature-2.jpg" alt="Render of the deck at an angle, showing the double concave" width="1080" height="1440" loading="lazy" onerror="this.remove()">
             </figure>
           </li>
           <li class="feature">
@@ -101,7 +131,7 @@
             <h3 class="feature__title">Glass-reinforced foil boxes</h3>
             <p class="feature__text">Custom, light, reinforced with fibreglass. Glass stretches further before it breaks, so it absorbs impacts and repeated loads better than carbon. SCS system compatible for easy foil mounting.</p>
             <figure class="photo feature__photo" data-label="Photo">
-              <img src="images/feature-3.jpg" alt="" loading="lazy" onerror="this.remove()">
+              <img src="images/feature-3.jpg" alt="Render of the bottom with the two foil boxes" width="1080" height="1440" loading="lazy" onerror="this.remove()">
             </figure>
           </li>
           <li class="feature">
@@ -109,7 +139,7 @@
             <h3 class="feature__title">Bottom channels</h3>
             <p class="feature__text">Longitudinal channels laminated into the bottom work as ribs, reinforcing the bottom skin and adding torsional stiffness while keeping the weight down.</p>
             <figure class="photo feature__photo" data-label="Photo">
-              <img src="images/feature-4.jpg" alt="" loading="lazy" onerror="this.remove()">
+              <img src="images/feature-4.jpg" alt="Render of the bottom with the longitudinal channels" width="1080" height="1440" loading="lazy" onerror="this.remove()">
             </figure>
           </li>
           <li class="feature">
@@ -117,7 +147,7 @@
             <h3 class="feature__title">Original artwork</h3>
             <p class="feature__text">Every graphic is drawn by hand by the shaper, a painter by training, so no two boards look the same. A board with a soul, built first and foremost for top performance on the water.</p>
             <figure class="photo feature__photo" data-label="Photo">
-              <img src="images/feature-5.jpg" alt="" loading="lazy" onerror="this.remove()">
+              <img src="images/feature-5.jpg" alt="Hand-drawn line artwork of a wave on the board" width="1080" height="1440" loading="lazy" onerror="this.remove()">
             </figure>
           </li>
           <li class="feature">
@@ -125,7 +155,7 @@
             <h3 class="feature__title">Durable carbon–PVC sandwich</h3>
             <p class="feature__text">A dense, closed-cell 80 kg/m³ PVC foam core. With carbon skins top and bottom, reinforced under the foil boxes, it forms a stiff, durable sandwich that does not soak up water.</p>
             <figure class="photo feature__photo" data-label="Photo">
-              <img src="images/feature-6.jpg" alt="" loading="lazy" onerror="this.remove()">
+              <img src="images/feature-6.jpg" alt="Render of the bottom and rail, showing the board's thickness" width="1080" height="1440" loading="lazy" onerror="this.remove()">
             </figure>
           </li>
           <li class="feature">
@@ -133,7 +163,7 @@
             <h3 class="feature__title">Light by design</h3>
             <p class="feature__text">Every gram was questioned, from the core to the grip. Less mass means less inertia: the board reacts instantly to every pump, carries speed more efficiently and swings naturally under your feet.</p>
             <figure class="photo feature__photo" data-label="Photo">
-              <img src="images/feature-7.jpg" alt="" loading="lazy" onerror="this.remove()">
+              <img src="images/feature-7.jpg" alt="Render of the whole board from the nose" width="1080" height="1440" loading="lazy" onerror="this.remove()">
             </figure>
           </li>
         </ol>
@@ -141,19 +171,21 @@
     </section>
 
     <section class="waitlist" id="waitlist" aria-labelledby="waitlist-title">
-      <div class="wrap">
-        <div>
-          <p class="label">Waitlist</p>
+      <div class="wrap section-grid">
+        <p class="side-head reveal">Waitlist</p>
+        <div class="waitlist__body">
+        <div class="reveal" style="--d:1">
           <h2 id="waitlist-title">Early access to the first drop.</h2>
           <p class="waitlist__lead">Leave your email. You will hear from us before the boards are released.</p>
         </div>
 
-        <div class="waitlist__form">
+        <div class="waitlist__form reveal" style="--d:2">
           <!-- KIT FORM (JavaScript embed) -->
           <script async data-uid="64d6f48a3a" src="https://teyo-surf.kit.com/64d6f48a3a/index.js"></script>
           <!-- END KIT FORM -->
 
           <p class="waitlist__note">By joining, you agree to receive emails from Teyo. <a href="privacy.html">Privacy policy</a></p>
+        </div>
         </div>
       </div>
     </section>
@@ -162,7 +194,6 @@
   <footer class="footer">
     <div class="wrap footer__grid">
       <div>
-        <a class="wordmark" href="./">TEYO</a>
         <p class="footer__small">Handmade pumpfoil boards. Gdańsk, Poland.</p>
       </div>
       <ul>
@@ -174,31 +205,9 @@
         <li class="footer__small">© 2026 Teyo</li>
       </ul>
     </div>
+    <p class="wrap footer__name reveal" aria-hidden="true">TEYO</p>
   </footer>
 
-  <script>
-    (function () {
-      var track = document.querySelector('.features__track');
-      var nav = document.querySelector('.features__nav');
-      var count = document.querySelector('.features__count');
-      var items = track.children;
-      var total = String(items.length).padStart(2, '0');
-      function step() { return items[1].offsetLeft - items[0].offsetLeft; }
-      function update() {
-        nav.hidden = track.scrollWidth <= track.clientWidth + 1;
-        var i = Math.round(track.scrollLeft / step());
-        if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 2) i = items.length - 1;
-        count.textContent = String(i + 1).padStart(2, '0') + ' / ' + total;
-      }
-      nav.addEventListener('click', function (e) {
-        var b = e.target.closest('button');
-        if (b) track.scrollBy({ left: step() * b.dataset.dir, behavior: 'smooth' });
-      });
-      track.addEventListener('scroll', update, { passive: true });
-      window.addEventListener('resize', update);
-      update();
-    })();
-  </script>
   <dialog class="lightbox" aria-label="Photo">
     <button type="button" class="lightbox__close" aria-label="Close">&times;</button>
     <button type="button" class="lightbox__arrow lightbox__arrow--prev" aria-label="Previous photo">&larr;</button>
@@ -210,107 +219,6 @@
     <span class="lightbox__count" aria-live="polite"></span>
   </dialog>
 
-  <script>
-    /* Photo lightbox. Each gallery (.photos grid, feature carousel) is browsed separately,
-       with arrows, swipe or arrow keys, looping from last to first. */
-    (function () {
-      var box = document.querySelector('.lightbox');
-      var big = box.querySelector('.lightbox__img');
-      var caption = box.querySelector('.lightbox__caption');
-      var count = box.querySelector('.lightbox__count');
-      var items = [];
-      var index = 0;
-      var step = 1;
-
-      /* A photo whose file is missing has its <img> removed (onerror), so it is skipped. */
-      function loaded(fig) {
-        return fig.querySelector('img');
-      }
-
-      function show(i) {
-        if (!items.length) { box.close(); return; }
-        index = (i + items.length) % items.length;
-        var fig = items[index];
-        var img = loaded(fig);
-        big.src = img.currentSrc || img.src;
-        big.alt = img.alt;
-        caption.innerHTML = '';
-        var feature = fig.closest('.feature');
-        if (feature) {
-          ['.feature__no', '.feature__title', '.feature__text'].forEach(function (sel) {
-            var src = feature.querySelector(sel);
-            if (src) caption.appendChild(src.cloneNode(true));
-          });
-        }
-        box.classList.toggle('lightbox--captioned', !!feature);
-        count.textContent = items.length > 1 ? (index + 1) + ' / ' + items.length : '';
-      }
-
-      function open(fig) {
-        if (!loaded(fig)) return;
-        var gallery = fig.closest('.photos, .features__track');
-        items = Array.prototype.filter.call(gallery.querySelectorAll('.photo'), loaded);
-        box.classList.toggle('lightbox--single', items.length < 2);
-        step = 1;
-        show(items.indexOf(fig));
-        if (!box.open) box.showModal();
-      }
-
-      document.querySelectorAll('.photos .photo, .features__track .photo').forEach(function (fig) {
-        var img = fig.querySelector('img');
-        if (!img) return;
-        fig.classList.add('photo--zoom');
-        fig.tabIndex = 0;
-        fig.setAttribute('role', 'button');
-        fig.setAttribute('aria-label', 'Open photo' + (img.alt ? ': ' + img.alt : ''));
-        fig.addEventListener('click', function () { open(fig); });
-        fig.addEventListener('keydown', function (e) {
-          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(fig); }
-        });
-        img.addEventListener('error', function () {
-          fig.classList.remove('photo--zoom');
-          ['role', 'tabindex', 'aria-label'].forEach(function (a) { fig.removeAttribute(a); });
-        });
-      });
-
-      box.querySelector('.lightbox__close').addEventListener('click', function () { box.close(); });
-      function go(d) { step = d; show(index + d); }
-
-      /* The file behind this photo is missing: drop it from the gallery and move on. */
-      big.addEventListener('error', function () {
-        if (!box.open || !big.getAttribute('src')) return;
-        var gone = items.splice(index, 1)[0];
-        var img = gone.querySelector('img');
-        if (img) img.dispatchEvent(new Event('error'));
-        if (img) img.remove();
-        box.classList.toggle('lightbox--single', items.length < 2);
-        show(step > 0 ? index : index - 1);
-      });
-
-      box.querySelector('.lightbox__arrow--prev').addEventListener('click', function () { go(-1); });
-      box.querySelector('.lightbox__arrow--next').addEventListener('click', function () { go(1); });
-      box.addEventListener('click', function (e) {
-        if (e.target === box || e.target.classList.contains('lightbox__stage')) box.close();
-      });
-      box.addEventListener('keydown', function (e) {
-        if (e.key === 'ArrowLeft') go(-1);
-        if (e.key === 'ArrowRight') go(1);
-      });
-      box.addEventListener('close', function () { big.removeAttribute('src'); });
-
-      var startX = null, startY = 0;
-      box.addEventListener('touchstart', function (e) {
-        if (e.touches.length !== 1) { startX = null; return; }
-        startX = e.touches[0].clientX; startY = e.touches[0].clientY;
-      }, { passive: true });
-      box.addEventListener('touchend', function (e) {
-        if (startX === null || items.length < 2) return;
-        var dx = e.changedTouches[0].clientX - startX;
-        var dy = e.changedTouches[0].clientY - startY;
-        startX = null;
-        if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) go(dx < 0 ? 1 : -1);
-      });
-    })();
-  </script>
+  <script src="main.js" defer></script>
 </body>
 </html>

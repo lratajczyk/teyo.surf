@@ -6,6 +6,18 @@
   <title>Privacy policy — Teyo</title>
   <meta name="description" content="How Teyo handles personal data collected through the Drop 001 waitlist.">
   <link rel="canonical" href="https://teyo.surf/privacy.html">
+  <link rel="alternate" hreflang="en" href="https://teyo.surf/privacy.html">
+  <link rel="alternate" hreflang="pl" href="https://teyo.surf/pl/privacy.html">
+  <link rel="alternate" hreflang="x-default" href="https://teyo.surf/privacy.html">
+  <!-- First visit with a Polish browser language: go to the Polish version.
+       A manual choice in the EN / PL switch is remembered and wins. -->
+  <script>
+    try {
+      if (!localStorage.getItem('teyo-lang') &&
+          (navigator.languages || [navigator.language]).some(function (l) { return /^pl\b/i.test(l); }))
+        location.replace('pl/privacy.html' + location.hash);
+    } catch (e) {}
+  </script>
   <meta name="theme-color" content="#ffffff">
 
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -28,14 +40,17 @@
   <header class="topbar">
     <div class="wrap">
       <a class="wordmark" href="./">TEYO</a>
-      <a class="label" href="./">Back</a>
+      <nav class="lang label" aria-label="Language">
+        <a href="privacy.html" data-lang="en" aria-current="true">EN</a>
+        <a href="pl/privacy.html" data-lang="pl" hreflang="pl" lang="pl">PL</a>
+      </nav>
     </div>
   </header>
 
   <main class="legal">
     <div class="wrap">
       <h1>Privacy policy</h1>
-      <p class="updated">Last updated: 10 October 2026</p>
+      <p class="updated">Last updated: 19 October 2026</p>
 
       <h2>Who we are</h2>
       <p>The controller of your personal data is AHOLA Łukasz Ratajczyk, NIP 5832995668, Gdańsk, Poland, operating the Teyo brand (“Teyo”, “we”).</p>
@@ -48,10 +63,10 @@
         <li>your first name,</li>
         <li>your country.</li>
       </ul>
-      <p>We do not collect any other personal data through this website. The site itself does not use analytics or advertising cookies.</p>
+      <p>We do not collect any other personal data through this website. The site itself does not use analytics or advertising cookies. If you switch between English and Polish, your choice is saved in your browser (local storage) and is not sent anywhere.</p>
 
       <h2>Why we collect it</h2>
-      <p>We use your data to run the waitlist: to tell you about Drop 001 and future Teyo boards, and to give you early access before a release. Your country helps us plan shipping.</p>
+      <p>We use your data to run the waitlist: to tell you about the first drop and future Teyo boards, and to give you early access before a release. Your country helps us plan shipping.</p>
 
       <h2>Legal basis</h2>
       <p>Your consent, given when you join the waitlist (Article 6(1)(a) GDPR). You can withdraw it at any time. Withdrawal does not affect processing that happened before it.</p>
@@ -105,5 +120,6 @@
       </ul>
     </div>
   </footer>
+  <script src="main.js" defer></script>
 </body>
 </html>

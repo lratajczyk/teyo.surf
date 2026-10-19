@@ -22,11 +22,19 @@ Plain HTML + CSS, no framework, no build step. Hosted on GitHub Pages.
 - Palette: white background, graphite/black type, light greys. No bright colors.
 - System font stack, light weights for headings, small uppercase letter-spaced labels.
 
+## Languages
+
+- English is the default: `index.html`, `privacy.html`. Polish: `pl/index.html`, `pl/privacy.html` (same markup, paths prefixed with `../`).
+- **Every content or markup change must be made in both languages.** The owner writes Polish copy; English copy is a translation of it (or the reverse).
+- EN pages redirect first-time visitors whose browser language is Polish to `pl/` (inline script in `<head>`). The EN / PL switch stores the choice in localStorage (`teyo-lang`), and a stored choice always wins.
+- Pages link each other with `hreflang` alternates; keep them in sync when adding pages.
+
 ## Structure
 
-- `index.html` — top bar, headline, intro, photo placeholders, feature carousel, waitlist (Kit form), footer.
+- `index.html` — top bar (EN / PL switch), headline, intro, photo grid, about the workshop, feature carousel, waitlist (Kit form), footer.
+- `main.js` — shared scripts: carousel, photo lightbox, language switch. UI strings follow `<html lang>`.
 - `privacy.html` — GDPR policy for the waitlist. Controller: AHOLA Łukasz Ratajczyk, NIP 5832995668. Processor: Kit. Data: email, first name, country. Update it if data collection or tools change.
 - `styles.css` — all styles. The Kit form overrides at the bottom use `!important` on purpose (Kit injects its own styles).
 - Kit form: JavaScript embed `data-uid="64d6f48a3a"`. Button text and placeholders are set in Kit, not here.
-- Photos: `images/photo-1..3.jpg`, `images/feature-1..5.jpg`. A grey placeholder shows until the file exists.
+- Photos: `images/photo-1..5.jpg` (grid), `images/feature-1..7.jpg` (carousel; renders from `../renders/` plus one artwork photo). A grey placeholder shows if a file is missing.
 - `images/og.jpg` (1200×630) is the link preview image.
