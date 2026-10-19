@@ -15,7 +15,7 @@ Plain HTML + CSS, no framework, no build step. Hosted on GitHub Pages.
 - `.github/workflows/pages.yml` publishes `main` to https://teyo.surf/ and `preview` to https://teyo.surf/preview/ (noindex). A push to either branch rebuilds both. Takes about a minute.
 - Pages source is set to **GitHub Actions**. The custom domain teyo.surf is set in repo Settings → Pages; DNS is at GoDaddy (A records to GitHub, `www` CNAME to lratajczyk.github.io). Do not touch MX/TXT/DKIM records: email (iCloud) and Kit depend on them.
 - Use relative links (`./`, `styles.css`, `images/…`), never root-absolute `/…`, so pages also work under `/preview/`.
-- `styles.css` and `main.js` are linked with a version (`?v=14`) on all four pages. **Bump the number on every change to either file**, otherwise browsers keep the old copy for a while.
+- `styles.css` and `main.js` are linked with a version (`?v=16`) on all six pages (en, pl, de × home, privacy). **Bump the number on every change to either file**, otherwise browsers keep the old copy for a while.
 
 ## Brand
 
@@ -25,10 +25,17 @@ Plain HTML + CSS, no framework, no build step. Hosted on GitHub Pages.
 
 ## Languages
 
-- English is the default: `index.html`, `privacy.html`. Polish: `pl/index.html`, `pl/privacy.html` (same markup, paths prefixed with `../`).
-- **Every content or markup change must be made in both languages.** The owner writes Polish copy; English copy is a translation of it (or the reverse).
-- EN pages redirect first-time visitors whose browser language is Polish to `pl/` (inline script in `<head>`). The EN / PL switch stores the choice in localStorage (`teyo-lang`), and a stored choice always wins.
-- Pages link each other with `hreflang` alternates; keep them in sync when adding pages.
+- English is the default: `index.html`, `privacy.html`. Polish: `pl/`. German: `de/` (same markup, paths prefixed with `../`).
+- **Every content or markup change must be made in all three languages.** The owner writes Polish copy; English and German are translations.
+- EN pages send first-time visitors whose browser language is Polish or German to `pl/` or `de/` (inline script in `<head>`). The EN / PL / DE switch stores the choice in localStorage (`teyo-lang`), and a stored choice always wins.
+- Pages link each other with `hreflang` alternates (en, pl, de, x-default); keep them in sync when adding pages.
+
+## For AI agents and search engines
+
+- Each home page has JSON-LD (Organization + WebSite + Product) in its own language. `llms.txt`, `robots.txt` (AI crawlers allowed, `/preview/` disallowed) and `sitemap.xml` sit at the root.
+- **When facts change (copy, features, contact, shipping, status), update the JSON-LD in all three home pages and `llms.txt` too.**
+- Dimensions, volume, weight, rider range and price are deliberately not published yet. Do not add or guess them until the owner gives them.
+- Shipping: within the EU.
 
 ## Structure
 

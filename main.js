@@ -2,10 +2,10 @@
    UI strings follow <html lang>. */
 
 (function () {
-  var pl = document.documentElement.lang === 'pl';
-  var t = pl
-    ? { open: 'Otwórz zdjęcie' }
-    : { open: 'Open photo' };
+  var t = {
+    pl: { open: 'Otwórz zdjęcie' },
+    de: { open: 'Foto öffnen' }
+  }[document.documentElement.lang] || { open: 'Open photo' };
 
   /* Language switch: remember a manual choice, so the automatic
      redirect (in the <head> of the English pages) never overrides it. */

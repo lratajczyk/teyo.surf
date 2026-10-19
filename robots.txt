@@ -1,0 +1,29 @@
+# Teyo — teyo.surf
+# Search engines and AI assistants are welcome to read and cite the site.
+# /preview/ is a work-in-progress copy and is kept out of indexes.
+
+User-agent: *
+Allow: /
+Disallow: /preview/
+
+User-agent: GPTBot
+Allow: /
+Disallow: /preview/
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /preview/
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /preview/
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /preview/
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /preview/
+
+Sitemap: https://teyo.surf/sitemap.xml

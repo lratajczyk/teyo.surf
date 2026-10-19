@@ -8,14 +8,20 @@
   <link rel="canonical" href="https://teyo.surf/">
   <link rel="alternate" hreflang="en" href="https://teyo.surf/">
   <link rel="alternate" hreflang="pl" href="https://teyo.surf/pl/">
+  <link rel="alternate" hreflang="de" href="https://teyo.surf/de/">
   <link rel="alternate" hreflang="x-default" href="https://teyo.surf/">
-  <!-- First visit with a Polish browser language: go to the Polish version.
-       A manual choice in the EN / PL switch is remembered and wins. -->
+  <!-- First visit with a Polish or German browser language: go to that version.
+       A manual choice in the language switch is remembered and wins. -->
   <script>
     try {
-      if (!localStorage.getItem('teyo-lang') &&
-          (navigator.languages || [navigator.language]).some(function (l) { return /^pl\b/i.test(l); }))
-        location.replace('pl/' + location.hash);
+      if (!localStorage.getItem('teyo-lang')) {
+        var langs = navigator.languages || [navigator.language];
+        for (var i = 0; i < langs.length; i++) {
+          var m = /^(pl|de)\b/i.exec(langs[i]);
+          if (m) { location.replace('{l}/'.replace('{l}', m[1].toLowerCase()) + location.hash); break; }
+          if (/^en\b/i.test(langs[i])) break;
+        }
+      }
     } catch (e) {}
   </script>
   <meta name="theme-color" content="#ffffff">
@@ -37,7 +43,124 @@
   <meta property="og:locale" content="en_GB">
   <meta name="twitter:card" content="summary_large_image">
 
-  <link rel="stylesheet" href="styles.css?v=14">
+  <link rel="stylesheet" href="styles.css?v=16">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://teyo.surf/#teyo",
+      "name": "Teyo",
+      "url": "https://teyo.surf/",
+      "logo": "https://teyo.surf/images/logo-full.png",
+      "image": "https://teyo.surf/images/og.jpg",
+      "legalName": "AHOLA Łukasz Ratajczyk",
+      "taxID": "5832995668",
+      "email": "contact@teyo.surf",
+      "telephone": "+48668366990",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Gdańsk",
+        "addressCountry": "PL"
+      },
+      "founder": {
+        "@type": "Person",
+        "name": "Łukasz Ratajczyk",
+        "jobTitle": "Shaper"
+      },
+      "areaServed": {
+        "@type": "AdministrativeArea",
+        "name": "European Union"
+      },
+      "sameAs": [
+        "https://www.instagram.com/teyo.surf/"
+      ],
+      "description": "Teyo is a small board workshop on the Baltic coast near Gdańsk, Poland. Foil boards designed and built by hand by Łukasz, a painter by training and a shaper by trade."
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://teyo.surf/#website",
+      "url": "https://teyo.surf/",
+      "name": "Teyo",
+      "inLanguage": "en",
+      "publisher": {
+        "@id": "https://teyo.surf/#teyo"
+      }
+    },
+    {
+      "@type": "Product",
+      "@id": "https://teyo.surf/#pitahaya",
+      "name": "Teyo Pump Pitahaya",
+      "alternateName": "Teyo Pump Pitahaya – First drop",
+      "description": "Handmade pumpfoil board from a small workshop on the Polish Baltic coast near Gdańsk. First drop: five numbered boards, each a unique piece of art and high-performance equipment. Waitlist open for early access. Shipping within the EU.",
+      "category": "Pumpfoil board",
+      "url": "https://teyo.surf/",
+      "brand": {
+        "@id": "https://teyo.surf/#teyo"
+      },
+      "manufacturer": {
+        "@id": "https://teyo.surf/#teyo"
+      },
+      "countryOfOrigin": "PL",
+      "image": [
+        "https://teyo.surf/images/photo-1.jpg",
+        "https://teyo.surf/images/photo-2.jpg",
+        "https://teyo.surf/images/photo-3.jpg",
+        "https://teyo.surf/images/photo-4.jpg",
+        "https://teyo.surf/images/photo-5.jpg"
+      ],
+      "additionalProperty": [
+        {
+          "@type": "PropertyValue",
+          "name": "Edition",
+          "value": "First drop, 5 numbered boards"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Status",
+          "value": "Waitlist open, release date to be announced"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Foil mount",
+          "value": "SCS compatible foil boxes"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Construction",
+          "value": "Carbon skins over a closed-cell 80 kg/m³ PVC foam core, fibreglass-reinforced foil boxes"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Deck",
+          "value": "Embedded custom grip, double concave"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Bottom",
+          "value": "Longitudinal laminated channels"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Artwork",
+          "value": "Hand-drawn, unique on every board"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Shipping",
+          "value": "Within the European Union"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Dimensions, volume, weight, price",
+          "value": "To be announced"
+        }
+      ]
+    }
+  ]
+}
+  </script>
 </head>
 <body>
   <a class="skip" href="#waitlist">Skip to waitlist</a>
@@ -51,6 +174,7 @@
       <nav class="lang label" aria-label="Language">
         <a href="./" data-lang="en" aria-current="true">EN</a>
         <a href="pl/" data-lang="pl" hreflang="pl" lang="pl">PL</a>
+        <a href="de/" data-lang="de" hreflang="de" lang="de">DE</a>
       </nav>
     </div>
   </header>
@@ -190,6 +314,7 @@
           <!-- END KIT FORM -->
 
           <p class="waitlist__note">By joining, you agree to receive emails from Teyo. <a href="privacy.html">Privacy policy</a></p>
+          <p class="waitlist__note">Prefer email? Write to <a href="mailto:contact@teyo.surf">contact@teyo.surf</a>.</p>
         </div>
         </div>
       </div>
@@ -199,7 +324,7 @@
   <footer class="footer">
     <div class="wrap footer__grid">
       <div>
-        <p class="footer__small">Handmade pumpfoil boards. Gdańsk, Poland.</p>
+        <p class="footer__small">Handmade pumpfoil boards. Gdańsk, Poland. Shipping within the EU.</p>
       </div>
       <ul>
         <li><a href="https://www.instagram.com/teyo.surf/" rel="noopener">Instagram @teyo.surf</a></li>
@@ -228,6 +353,6 @@
     <span class="lightbox__count" aria-live="polite"></span>
   </dialog>
 
-  <script src="main.js?v=14" defer></script>
+  <script src="main.js?v=16" defer></script>
 </body>
 </html>

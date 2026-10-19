@@ -128,7 +128,7 @@ a:hover { opacity: .65; }
 
 .intro__title {
   margin: 0 0 48px -.04em;              /* optical: pull the big T onto the text edge */
-  font-weight: 300;
+  font-weight: 500;
   color: var(--black);
 }
 
@@ -141,6 +141,7 @@ a:hover { opacity: .65; }
 
 .intro__sub [data-line] {
   margin-top: .3em;
+  font-weight: 400;
   margin-left: .06em;                    /* undo the optical pull for the smaller line */
   font-size: clamp(20px, 4.2vw, 30px);   /* about 0.4 of the name */
   line-height: 1.15;

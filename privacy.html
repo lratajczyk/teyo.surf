@@ -8,14 +8,20 @@
   <link rel="canonical" href="https://teyo.surf/privacy.html">
   <link rel="alternate" hreflang="en" href="https://teyo.surf/privacy.html">
   <link rel="alternate" hreflang="pl" href="https://teyo.surf/pl/privacy.html">
+  <link rel="alternate" hreflang="de" href="https://teyo.surf/de/privacy.html">
   <link rel="alternate" hreflang="x-default" href="https://teyo.surf/privacy.html">
-  <!-- First visit with a Polish browser language: go to the Polish version.
-       A manual choice in the EN / PL switch is remembered and wins. -->
+  <!-- First visit with a Polish or German browser language: go to that version.
+       A manual choice in the language switch is remembered and wins. -->
   <script>
     try {
-      if (!localStorage.getItem('teyo-lang') &&
-          (navigator.languages || [navigator.language]).some(function (l) { return /^pl\b/i.test(l); }))
-        location.replace('pl/privacy.html' + location.hash);
+      if (!localStorage.getItem('teyo-lang')) {
+        var langs = navigator.languages || [navigator.language];
+        for (var i = 0; i < langs.length; i++) {
+          var m = /^(pl|de)\b/i.exec(langs[i]);
+          if (m) { location.replace('{l}/privacy.html'.replace('{l}', m[1].toLowerCase()) + location.hash); break; }
+          if (/^en\b/i.test(langs[i])) break;
+        }
+      }
     } catch (e) {}
   </script>
   <meta name="theme-color" content="#ffffff">
@@ -34,7 +40,7 @@
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
 
-  <link rel="stylesheet" href="styles.css?v=14">
+  <link rel="stylesheet" href="styles.css?v=16">
 </head>
 <body>
   <header class="topbar">
@@ -43,6 +49,7 @@
       <nav class="lang label" aria-label="Language">
         <a href="privacy.html" data-lang="en" aria-current="true">EN</a>
         <a href="pl/privacy.html" data-lang="pl" hreflang="pl" lang="pl">PL</a>
+        <a href="de/privacy.html" data-lang="de" hreflang="de" lang="de">DE</a>
       </nav>
     </div>
   </header>
@@ -108,7 +115,7 @@
     <div class="wrap footer__grid">
       <div>
         <a class="logo logo--small" href="./"><img src="images/logo-mark.png" alt="Teyo" width="360" height="270"></a>
-        <p class="footer__small">Handmade pumpfoil boards. Gdańsk, Poland.</p>
+        <p class="footer__small">Handmade pumpfoil boards. Gdańsk, Poland. Shipping within the EU.</p>
       </div>
       <ul>
         <li><a href="https://www.instagram.com/teyo.surf/" rel="noopener">Instagram @teyo.surf</a></li>
@@ -121,6 +128,6 @@
       </ul>
     </div>
   </footer>
-  <script src="main.js?v=14" defer></script>
+  <script src="main.js?v=16" defer></script>
 </body>
 </html>
