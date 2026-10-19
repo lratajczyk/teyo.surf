@@ -15,6 +15,7 @@ Plain HTML + CSS, no framework, no build step. Hosted on GitHub Pages.
 - `.github/workflows/pages.yml` publishes `main` to https://teyo.surf/ and `preview` to https://teyo.surf/preview/ (noindex). A push to either branch rebuilds both. Takes about a minute.
 - Pages source is set to **GitHub Actions**. The custom domain teyo.surf is set in repo Settings → Pages; DNS is at GoDaddy (A records to GitHub, `www` CNAME to lratajczyk.github.io). Do not touch MX/TXT/DKIM records: email (iCloud) and Kit depend on them.
 - Use relative links (`./`, `styles.css`, `images/…`), never root-absolute `/…`, so pages also work under `/preview/`.
+- `styles.css` and `main.js` are linked with a version (`?v=11`) on all four pages. **Bump the number on every change to either file**, otherwise browsers keep the old copy for a while.
 
 ## Brand
 
