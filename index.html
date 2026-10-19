@@ -21,9 +21,9 @@
   <meta name="theme-color" content="#ffffff">
   <script>document.documentElement.classList.add('js')</script>
 
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="icon" href="favicon-32.png?v=12" type="image/png" sizes="32x32">
+  <link rel="icon" href="icon-512.png?v=12" type="image/png" sizes="512x512">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png?v=12">
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Teyo">
@@ -37,7 +37,7 @@
   <meta property="og:locale" content="en_GB">
   <meta name="twitter:card" content="summary_large_image">
 
-  <link rel="stylesheet" href="styles.css?v=11">
+  <link rel="stylesheet" href="styles.css?v=14">
 </head>
 <body>
   <a class="skip" href="#waitlist">Skip to waitlist</a>
@@ -45,7 +45,7 @@
   <header class="topbar">
     <div class="wrap">
       <div class="brand">
-        <a class="wordmark" href="./">TEYO</a>
+        <a class="logo" href="./"><img src="images/logo-mark.png" alt="Teyo" width="360" height="270"></a>
         <span class="brand__place">Gdańsk / Poland / Baltic sea</span>
       </div>
       <nav class="lang label" aria-label="Language">
@@ -204,13 +204,17 @@
       <ul>
         <li><a href="https://www.instagram.com/teyo.surf/" rel="noopener">Instagram @teyo.surf</a></li>
         <li><a href="mailto:contact@teyo.surf">contact@teyo.surf</a></li>
+        <li><a href="tel:+48668366990">+48 668 366 990</a></li>
       </ul>
       <ul>
         <li><a href="privacy.html">Privacy</a></li>
         <li class="footer__small">© 2026 Teyo</li>
       </ul>
     </div>
-    <p class="wrap footer__name reveal" aria-hidden="true">TEYO</p>
+    <div class="wrap footer__name reveal">
+      <img src="images/logo-full.png" alt="" width="1040" height="759" loading="lazy">
+      <p class="made"><span class="made__flag" aria-hidden="true"></span>Made in Poland</p>
+    </div>
   </footer>
 
   <dialog class="lightbox" aria-label="Photo">
@@ -224,6 +228,6 @@
     <span class="lightbox__count" aria-live="polite"></span>
   </dialog>
 
-  <script src="main.js?v=11" defer></script>
+  <script src="main.js?v=14" defer></script>
 </body>
 </html>

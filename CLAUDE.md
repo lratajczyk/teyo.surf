@@ -15,7 +15,7 @@ Plain HTML + CSS, no framework, no build step. Hosted on GitHub Pages.
 - `.github/workflows/pages.yml` publishes `main` to https://teyo.surf/ and `preview` to https://teyo.surf/preview/ (noindex). A push to either branch rebuilds both. Takes about a minute.
 - Pages source is set to **GitHub Actions**. The custom domain teyo.surf is set in repo Settings → Pages; DNS is at GoDaddy (A records to GitHub, `www` CNAME to lratajczyk.github.io). Do not touch MX/TXT/DKIM records: email (iCloud) and Kit depend on them.
 - Use relative links (`./`, `styles.css`, `images/…`), never root-absolute `/…`, so pages also work under `/preview/`.
-- `styles.css` and `main.js` are linked with a version (`?v=11`) on all four pages. **Bump the number on every change to either file**, otherwise browsers keep the old copy for a while.
+- `styles.css` and `main.js` are linked with a version (`?v=14`) on all four pages. **Bump the number on every change to either file**, otherwise browsers keep the old copy for a while.
 
 ## Brand
 
@@ -38,4 +38,5 @@ Plain HTML + CSS, no framework, no build step. Hosted on GitHub Pages.
 - `styles.css` — all styles. The Kit form overrides at the bottom use `!important` on purpose (Kit injects its own styles).
 - Kit form: JavaScript embed `data-uid="64d6f48a3a"`. Button text and placeholders are set in Kit, not here.
 - Photos: `images/photo-1..5.jpg` (grid), `images/feature-1..7.jpg` (carousel; renders from `../renders/` plus one artwork photo). A grey placeholder shows if a file is missing.
-- `images/og.jpg` (1200×630) is the link preview image.
+- `images/og.jpg` (1200×630) is the link preview image (logo + title, rendered from HTML).
+- Logo: a linocut print, scanned (`../brand/logo-linocut-scan.jpg`, outside the site). Cut out with transparent paper and the print texture kept: `images/logo-mark.png` ("teyo", top bar), `images/logo-full.png` ("teyo .surf", footer). Favicons `favicon-32.png`, `apple-touch-icon.png`, `icon-512.png` are the mark on white. Never redraw or retype the logo as text.
